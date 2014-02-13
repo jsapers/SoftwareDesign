@@ -30,7 +30,7 @@ def load_salmonella_genome():
     for line in lines:
         if line[5:].find("CDS") == 0:
             coords = line[21:-1]
-            if len(gene) != 0:
+            if len(gene) == 3:
                 retval.append(gene)
             gene = [coords]
         elif line[21:].find("/protein_id") == 0:
@@ -49,5 +49,7 @@ def load_salmonella_genome():
                 amino_acid_seq += line[21:-2]
                 is_amino_acid_seq = False
                 gene.append(amino_acid_seq)
+    if len(gene) == 3:
+         retval.append(gene)
     f.close()
     return retval
