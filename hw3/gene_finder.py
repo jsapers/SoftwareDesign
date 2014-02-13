@@ -150,6 +150,11 @@ def longest_ORF(dna):
     return ORFs[ind]
 
 
+def longest_ORF_unit_tests():
+    """ Unit tests for the longest_ORF function """
+
+    # YOUR IMPLEMENTATION HERE
+
 def longest_ORF_noncoding(dna, num_trials):
     """ Computes the maximum length of the longest ORF over num_trials shuffles
         of the specfied DNA sequence
@@ -158,8 +163,8 @@ def longest_ORF_noncoding(dna, num_trials):
         num_trials: the number of random shuffles
         returns: the maximum length longest ORF """
     #import random
+    ORF = ""
     for i in range(num_trials):
-        ORF = ""
         dna_temp = []
         dna_string = ""
         for char in dna:
@@ -167,8 +172,7 @@ def longest_ORF_noncoding(dna, num_trials):
         shuffle(dna_temp)
         for item in dna_temp:    
             dna_string +=item
-        if longest_ORF(dna_string)>ORF:
-            longest_ORF(dna_string)
+        if len(longest_ORF(dna_string))>len(ORF):
             ORF = longest_ORF(dna_string)
     return len(ORF)
         
@@ -192,3 +196,13 @@ def gene_finder(dna, threshold):
     for items in protiens:
         protein += items
     return protein
+
+def search_genome_simple(DNA,aa):
+    
+    names = []
+    for items in DNA:
+        if len(items)==3:
+            if aa in items[2]:   
+                print items
+                names.append(items[1])
+    return names

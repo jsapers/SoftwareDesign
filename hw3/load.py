@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+hw# -*- coding: utf-8 -*-
 """
 Created on Sat Feb  1 22:02:04 2014
 
@@ -6,7 +6,6 @@ Created on Sat Feb  1 22:02:04 2014
 """
 
 from os import path
-
 def load_seq(fasta_file):
     """ Reads a FASTA file and returns the DNA sequence as a string.
 
