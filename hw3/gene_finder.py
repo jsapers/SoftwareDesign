@@ -53,6 +53,8 @@ def get_complementary_base(B):
     elif B == 'T':
         return 'A'
 
+# good use of auxiliary function :-)
+
 def get_reverse_complement(dna):
     """ Computes the reverse complementary sequence of DNA for the specfied DNA
         sequence
@@ -176,6 +178,10 @@ def longest_ORF_noncoding(dna, num_trials):
             ORF = longest_ORF(dna_string)
     return len(ORF)
         
+'''
+You can set dna_temp to be list(dna).
+This is the same as casting the string, dna, to list
+'''
 
 def gene_finder(dna, threshold):
     """ Returns the amino acid sequences coded by all genes that have an ORF
@@ -196,6 +202,8 @@ def gene_finder(dna, threshold):
     for items in protiens:
         protein += items
     return protein
+
+# I think you just want to return the list protiens, not the string.
 
 def search_genome_simple(DNA,aa):
     
