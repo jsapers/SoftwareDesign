@@ -87,7 +87,7 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     return val*ratio + offset
     
 
-global current_depth   
+global current_depth   # you've already instantiated the variable up top. No need to do it again :-)
 fR = build_random_function(2, 25)
 current_depth = 1
 fB = build_random_function(2, 25)
