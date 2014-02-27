@@ -19,7 +19,7 @@ def build_random_function(min_depth, max_depth):
         max_depth: the maximum depth that you want your function to reach
     """
     # your code goes here
-    global current_depth
+    global current_depth        # woah...global vairables? I don't recommend using global variables. It also seems like you're only using it as a variable within this function.
     if current_depth < min_depth:
         current_depth += 1
         choices = ["prod","sin_pi","cos_pi"]
@@ -30,7 +30,7 @@ def build_random_function(min_depth, max_depth):
         else:
             return [s,build_random_function(min_depth, max_depth)]
         
-    elif current_depth >= min_depth:
+    elif current_depth >= min_depth:    # why not just use else? If it's not less than, it has to be greater than or equal to.
         
         if current_depth == max_depth:
             current_depth += 1
@@ -50,6 +50,9 @@ def build_random_function(min_depth, max_depth):
         else:
             return [s]
         
+'''
+Ah, I see what you're doing with current_depth. However, you should just use min/max depth and changes in those numbers to drive the recursion forward.
+'''
 
 def evaluate_random_function(f, x, y):
     # your doc string goes here
@@ -65,6 +68,11 @@ def evaluate_random_function(f, x, y):
         return y
     elif f[0] == 'x':
         return x
+
+'''
+I know it doesn't make much different for this case, but you should always check for base cases first. In this case, your base cases
+are x and y. 
+'''
 
 def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
     """ Maps the input value that is in the interval [input_interval_start, input_interval_end]
