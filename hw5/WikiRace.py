@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Spyder Editor
-
+By Josh Sapers and Subbhash Gubba
 This temporary script file is located here:
 /home/josh/.spyder2/.temp.py
 """
