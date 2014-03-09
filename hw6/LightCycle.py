@@ -13,8 +13,8 @@ import time
 
 class LightCycleModel:
     def __init__(self):
-        self.cycle1 = Cycle(50,240,10,(250,0,0),.50)
-        self.cycle2 = Cycle(590,240,10,(0,0,250),-.50)
+        self.cycle1 = Cycle(50,240,10,(250,0,0),.750)
+        self.cycle2 = Cycle(590,240,10,(0,0,250),-.750)
         self.trail1=[]
         self.trail2=[]
     
@@ -39,6 +39,17 @@ class LightCycleModel:
         if self.cycle2.vy<0:
             self.trail2.append(Trail(self.cycle2.color,self.cycle2.vy,self.cycle2.width,self.cycle2.x,self.cycle2.y+self.cycle2.height))
         
+        for path1 in self.trail1[:-30]:        
+            if pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height).colliderect(pygame.Rect(path1.x,path1.y,path1.width,path1.height)):
+                return False
+            if pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height).colliderect(pygame.Rect(path1.x,path1.y,path1.width,path1.height)):
+                return False
+        for path2 in self.trail2[:-30]:        
+            if pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height).colliderect(pygame.Rect(path2.x,path2.y,path2.width,path2.height)):
+                return False
+            if pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height).colliderect(pygame.Rect(path2.x,path2.y,path2.width,path2.height)):
+                return False
+        return True
         
 class Cycle:
     def __init__(self,x,y,thick,color,vx):
@@ -53,6 +64,8 @@ class Cycle:
     def update(self):
         self.x += self.vx
         self.y += self.vy
+        
+        
 class Trail:
      def __init__(self,color,height,width,x,y):
         self.color=color
@@ -85,32 +98,32 @@ class Controller:
         if event.type != KEYDOWN:
             return
         if event.key == pygame.K_LEFT and self.model.cycle1.vx == 0:
-            self.model.cycle1.vx += -.50
+            self.model.cycle1.vx += -.750
             self.model.cycle1.vy = 0.0
         if event.key == pygame.K_RIGHT and self.model.cycle1.vx == 0:
-            self.model.cycle1.vx += .50
+            self.model.cycle1.vx += .750
             self.model.cycle1.vy = 0.0
         if event.key == pygame.K_UP and self.model.cycle1.vy == 0:
             self.model.cycle1.vx = 0.0
-            self.model.cycle1.vy = -.50
+            self.model.cycle1.vy = -.750
         if event.key == pygame.K_DOWN and self.model.cycle1.vy == 0:
             self.model.cycle1.vx = 0.0
-            self.model.cycle1.vy = .50
+            self.model.cycle1.vy = .750
         else:
             self.model.cycle1.vx = self.model.cycle1.vx
             self.model.cycle1.vy = self.model.cycle1.vy
         if event.key == pygame.K_a and self.model.cycle2.vx == 0:
-            self.model.cycle2.vx = -.50
+            self.model.cycle2.vx = -.750
             self.model.cycle2.vy = 0.0
         if event.key == pygame.K_d and self.model.cycle2.vx == 0:
-            self.model.cycle2.vx = .50
+            self.model.cycle2.vx = .750
             self.model.cycle2.vy = 0.0
         if event.key == pygame.K_w and self.model.cycle2.vy == 0:
             self.model.cycle2.vx = 0.0
-            self.model.cycle2.vy = -.50
+            self.model.cycle2.vy = -.750
         if event.key == pygame.K_s and self.model.cycle2.vy == 0:
             self.model.cycle2.vx = 0.0
-            self.model.cycle2.vy = .50
+            self.model.cycle2.vy = .750
             
 if __name__ == '__main__':
     pygame.init()
@@ -131,7 +144,7 @@ if __name__ == '__main__':
                 running = False
             if event.type == KEYDOWN:
                 controller.handle_keyboard_event(event)
-        model.update()
+        running=model.update()
         view.draw()
         time.sleep(.001)
 
