@@ -59,8 +59,8 @@ class LightCycleModel:
                 return False
         if not(self.windowRect.contains(pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height))):
             return False
-        #if not(self.windowRect.contains(pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height))):
-        #    return False
+        if not(self.windowRect.contains(pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height))):
+            return False
         return True
         
 class Cycle:
