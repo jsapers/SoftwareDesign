@@ -13,8 +13,8 @@ import time
 
 class LightCycleModel:
     def __init__(self):
-        self.cycle2 = Cycle(200,500,10,(250,0,0),1.0)
         self.cycle1 = Cycle(800,500,10,(0,0,250),-1.0)
+        self.cycle2 = Cycle(200,500,10,(250,0,0),1.0)
         self.trail1=[]
         self.trail2=[]
         self.trail1.append(Trail(self.cycle1.color,self.cycle1.height,0,self.cycle1.x,self.cycle1.y))
@@ -25,21 +25,25 @@ class LightCycleModel:
         if self.cycle1.vx>0:
            self.trail1[-1].width+=self.cycle1.vx
         if self.cycle1.vx<0:
-            self.trail1[-1].width+=self.cycle1.vx
+            self.trail1[-1].width=self.trail1[-1].width-self.cycle1.vx
+            self.trail1[-1].x = self.cycle1.x+self.cycle1.width
         if self.cycle1.vy>0:
             self.trail1[-1].height+=self.cycle1.vy
         if self.cycle1.vy<0:
-            self.trail1[-1].height+=self.cycle1.vy
+            self.trail1[-1].height=self.trail1[-1].height-self.cycle1.vy
+            self.trail1[-1].y = self.cycle1.y+self.cycle1.height
        
         if self.cycle2.vx>0:
            self.trail2[-1].width+=self.cycle2.vx
         if self.cycle2.vx<0:
-            self.trail2[-1].width+=self.cycle2.vx
+            self.trail2[-1].width=self.trail2[-1].width-self.cycle2.vx
+            self.trail2[-1].x = self.cycle2.x+self.cycle2.width
         if self.cycle2.vy>0:
             self.trail2[-1].height+=self.cycle2.vy
         if self.cycle2.vy<0:
-            self.trail2[-1].height+=self.cycle2.vy
-        
+            self.trail2[-1].height=self.trail2[-1].height-self.cycle2.vy
+            self.trail2[-1].y = self.cycle2.y+self.cycle2.height
+        print "\n\n\n\n"
         for path1 in self.trail1[:-1]:
             print path1.x, path1.y
             if pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height).colliderect(pygame.Rect(path1.x,path1.y,path1.width,path1.height)):
@@ -48,7 +52,7 @@ class LightCycleModel:
             if pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height).colliderect(pygame.Rect(path1.x,path1.y,path1.width,path1.height)):               
                 return False
         for path2 in self.trail2[:]:        
-            if pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height).colliderect(pygame.Rect(path2.x,path2.y,path2.width,path2.height)):                
+            if pygame.Rect(self.cycle1.x,self.cycle1.y,self.cycle1.width,self.cycle1.height).colliderect(pygame.Rect(path2.x,path2.y,path2.width,path2.height)):                                
                 return False
         for path2 in self.trail2[:-1]:
             if pygame.Rect(self.cycle2.x,self.cycle2.y,self.cycle2.width,self.cycle2.height).colliderect(pygame.Rect(path2.x,path2.y,path2.width,path2.height)):
