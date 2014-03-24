@@ -16,6 +16,7 @@ def getLinks(url):
     
     Input: The article's URL
     Output: A dicsatellitetionary of all links in the page.
+    haha, dicsatellitetionary is probably not what you meant.
     """
     d={}
     r  = requests.get(url)
@@ -28,6 +29,11 @@ def getLinks(url):
                 if not(":"in l or "Main_Page"in l):
                     d[l[6:]]="http://en.wikipedia.org"+l
     return d
+
+    """ Nice, this function is effective.  
+    I'd love to see more descriptive variable names or inline comments, 
+    as it is a bit difficult to understand what is actually going on."""
+    
 def compareLinks(start,prev,targetName,targetText):
     """
     Recursively compares the current link's words to the goal's
